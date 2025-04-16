@@ -10,10 +10,17 @@ var ajax = [
 ];
 
 function makeAjaxCall() {
+	console.log("🔄 Making an Ajax call...");
 	ajax.forEach((a) => {
 		fetch(a)
-			.then(x => console.log(x))
-			.catch(e => console.error('Fetch error:', e));
+			.then(response => {
+				if (!response.ok) {
+					console.error(`❌ ${response.status} error for URL: ${a}`);
+				} else {
+					console.log(`✅ ${response.status} OK for URL: ${a}`);
+				}
+			})
+			.catch(e => console.error(`❌ Network fetch error for ${a}:`, e));
 	});
 }
 
